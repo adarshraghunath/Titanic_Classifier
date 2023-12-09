@@ -1,0 +1,30 @@
+{
+    "Features" : 
+        {
+            "Ignore" : ["Name","Cabin","Ticket"] ,
+            "categorical_features" : ["Sex","Embarked"],
+            "numerical_features" : ["Age","Pclass", "SibSp", "Parch", "Fare"],
+            "LR"    : 1e-3,
+            "epochs" : 1000,
+            "train_batch_size" : 16,
+            "val_batch_size" : 8,
+            "tt_split" : 0.2
+
+        }
+    ,
+
+    "Model" : 
+        {   
+            "layers" : 32,
+            "dropout" : true 
+        }
+    ,
+
+    "Save" : 
+        {
+            "plot" : false,
+            "expt" : 12,
+            "enable_logging" : false
+        }
+    
+}
