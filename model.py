@@ -1,5 +1,8 @@
 from utils import *
 
+def exists(variable):
+    return variable is not None and variable != 0
+
 class TitanicModel(nn.Module):
     def __init__(self, input_size,**kwargs):
         super(TitanicModel, self).__init__()
@@ -10,7 +13,7 @@ class TitanicModel(nn.Module):
                 nn.Linear(input_size, l),
                 nn.BatchNorm1d(l),  #Batchnorm best when applied before activation function
                 nn.LeakyReLU(),
-                nn.Dropout(p=0.2) if dropout else nn.Identity(),  #use dropout after activation  CONV / Dense -> BN -> ReLU -> Dropout
+                nn.Dropout(p=dropout) if exists(dropout) else nn.Identity(),  #use dropout after activation  CONV / Dense -> BN -> ReLU -> Dropout
                 nn.Linear(l,l*2),
                 nn.BatchNorm1d(l*2),
                 nn.Flatten(),

@@ -10,6 +10,8 @@ from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 import pandas as pd
 import os
+from sklearn.feature_selection import r_regression
+
 
 class Transforms(): #what is love? baby dont hurt me
     def __init__(self, categorical_features : list[str], numerical_features : list[str]) -> None:
@@ -93,5 +95,13 @@ def exec_name(data : pd.DataFrame) -> pd.DataFrame:
 
     data.drop(columns='Name',inplace=True)
 
+    return data
+
+
+def exec_cabin(data : pd.DataFrame) -> pd.DataFrame:
+    imputer = SimpleImputer(strategy="constant",fill_value="Unk")
+    data["Deck"] = data["Cabin"].str.extract('([A-Za-z])')
+    data["Deck"] =  pd.DataFrame(imputer.fit_transform(data["Deck"].values.reshape(-1,1)).reshape(-1))
+    data.drop(columns='Cabin',inplace=True)
     return data
 
